@@ -1,0 +1,120 @@
+import java.util.Random;
+
+public class Person implements Comparable<Person>, SillyActions {
+
+    private static final String DEFAULT_LAST_NAME = "LNU";
+    private static final String DEFAULT_FIRST_NAME = "FNU";
+    private static final int DEFAULT_YEAR_BORN = 1800;
+
+    private String firstName;
+    private String lastName;
+    private int yearBorn;
+
+    public Person(String firstName, String lastName, int yearBorn) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.yearBorn = yearBorn;
+    }
+
+    public Person(String firstName) {
+        this(firstName, DEFAULT_LAST_NAME, DEFAULT_YEAR_BORN);
+    }
+
+    /** Default constructor */
+    public Person() {
+        this(DEFAULT_FIRST_NAME, DEFAULT_LAST_NAME, DEFAULT_YEAR_BORN);
+    }
+
+    // Implements Comparable based on year born
+    public int compareTo(Person other) {
+        return other.getYearBorn() - this.yearBorn;
+    }
+
+    @Override
+    public String toString() {
+        return "Person [firstName=" + firstName + ", lastName=" + lastName + ", yearBorn=" + yearBorn + "]";
+    }
+
+    //------------------- CREATIVE IMPLEMENTATION OF SILLYACTIONS INTERFACE ------------------------------
+
+    @Override
+    public void makeRandomSound() {
+        // Producing a random word from a set of poetic words from PoemWords class
+        String[] randomSounds = PoemWords.words;
+        Random random = new Random();
+        String sound = randomSounds[random.nextInt(randomSounds.length)];
+        System.out.println(firstName + " suddenly makes a sound: \"" + sound + "\"");
+    }
+
+    @Override
+    public void performSillyDance() {
+        // Describing a silly dance using a combination of creative words from PoemWords
+        String[] danceMoves = { "flutters left", "glides right", "pirouettes forward", "twirls backwards" };
+        System.out.println(firstName + " performs an elegant yet silly dance:");
+        for (String move : danceMoves) {
+            System.out.println("... " + firstName + " " + move + " ...");
+        }
+        System.out.println(firstName + " ends the dance with a dramatic leap!");
+    }
+
+    @Override
+    public String reciteAlphabetBackwards() {
+        // Reciting the alphabet backwards, but skipping the letter 'S' (for no reason other than fun)
+        String alphabet = "ZYXWVUTRQPNMLKJIHGFEDCBA";  // Skipping 'S'
+        return alphabet;
+    }
+
+    @Override
+    public void countToTenWeirdly() {
+        // Counting to ten but skipping number 5, and pronouncing number 3 as "threeeee!"
+        System.out.println(firstName + " counts to ten in a peculiar way:");
+        for (int i = 1; i <= 10; i++) {
+            if (i == 5) {
+                System.out.println("Skipping number 5 for no reason...");
+                continue;
+            }
+            if (i == 3) {
+                System.out.println("Threeeee!");
+            } else {
+                System.out.println(i);
+            }
+        }
+    }
+
+    @Override
+    public String createWhimsicalPoem(String topic) {
+        // Creating a whimsical poem using words from PoemWords class and the given topic
+        Random random = new Random();
+        String randomWord1 = PoemWords.words[random.nextInt(PoemWords.words.length)];
+        String randomWord2 = PoemWords.words[random.nextInt(PoemWords.words.length)];
+
+        return "Oh " + topic + ", how you flutter,\n" +
+               "With " + randomWord1 + " and " + randomWord2 + ", I utter,\n" +
+               "The moon beams, the stars dance,\n" +
+               "In your " + topic + ", I am lost in a trance.";
+    }
+
+    @Override
+    public void winStateLottery() {
+        // Generating random lottery numbers (6 numbers between 1 and 49) and adding a fun twist
+        Random random = new Random();
+        System.out.println(firstName + "'s magical lottery numbers are:");
+        for (int i = 0; i < 6; i++) {
+            int number = random.nextInt(49) + 1;
+            System.out.print(number + (number % 2 == 0 ? " (lucky even!)" : " (odd surprise!)") + " ");
+        }
+        System.out.println("\n...but remember, the real lottery is the friends we made along the way.");
+    }
+
+    // Main method to test
+    public static void main(String[] args) {
+        Person person = new Person("Alice", "Smith", 1990);
+        
+        person.makeRandomSound();
+        person.performSillyDance();
+        System.out.println("Alphabet Backwards (missing S): " + person.reciteAlphabetBackwards());
+        person.countToTenWeirdly();
+        System.out.println("Whimsical Poem:\n" + person.createWhimsicalPoem("The Sun"));
+        person.winStateLottery();
+    }
+}
